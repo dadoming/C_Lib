@@ -23,7 +23,7 @@ int	_concatenatel(char *dst, const char *src, int dstsize)
 	int	dst_len;
 
 	if (dstsize <= string()->_length(dst))
-		return (dstsize + ft_strlen(src));
+		return (dstsize + string()->_length(src));
 	dst_len = string()->_length(dst);
 	i = 0;
 	while (src[i] != '\0' && dst_len + 1 < dstsize)
@@ -73,7 +73,7 @@ char	*_duplicate(const char *str)
 
 int	_is_alnum(int c)
 {
-	if (ft_isalpha(c) || ft_isdigit(c))
+	if (string()->_is_alpha(c) || string()->_is_digit(c))
 		return (1);
 	else
 		return (0);

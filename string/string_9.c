@@ -1,13 +1,13 @@
 #include "../includes/my_lib.h"
 
-int	_to_lower(int letter)
+char	_to_lower(char letter)
 {
 	if (letter >= 'A' && letter <= 'Z')
 		letter += 32;
 	return (letter);
 }
 
-int	_to_upper(int letter)
+char	_to_upper(char letter)
 {
 	if (letter >= 'a' && letter <= 'z')
 		letter -= 32;

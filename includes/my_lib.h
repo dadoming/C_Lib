@@ -12,7 +12,7 @@ typedef struct s_string
     char 	(*_to_upper)(char c);
     int	    (*_compare_n)(const char* s1, const char* s2, unsigned int n);
     int	    (*_compare)(const char* s1, const char* s2);
-    char	(*_append)(const char* s1, const char* s2);
+    char*	(*_append)(const char* s1, const char* s2);
     char*	(*_search)(const char *str, char c);
     int	    (*_copyl)(char *dst, const char *src, int dstsize);
     int	    (*_concatenatel)(char *dst, const char *src, int dstsize);
@@ -56,10 +56,10 @@ char*   _rear_search(const char *str, char c);
 char*   _substr(const char *s, unsigned int start, unsigned int len);
 
 // Returns a passed letter in lowercase.
-int		_to_lower(int letter);
+char		_to_lower(char letter);
 
 // Returns a passed letter in uppercase.
-int		_to_upper(int letter);
+char		_to_upper(char letter);
 
 // Returns an int from a passed string.
 int		_atoi(const char *str);

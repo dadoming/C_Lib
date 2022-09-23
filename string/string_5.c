@@ -1,6 +1,6 @@
 #include "../includes/my_lib.h"
 
-unsigned int _length(const char *str)
+int _length(const char *str)
 {
     unsigned int i;
 	
