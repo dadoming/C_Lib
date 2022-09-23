@@ -34,7 +34,7 @@ char*	_mapi(char const *s, char (*f)(unsigned int, char))
 	return (str);
 }
 
-int	_mem_compare(const void *s1, const void *s2, size_t n)
+int	_mem_compare(const void *s1, const void *s2, unsigned int n)
 {
 	unsigned char	*auxstr1;
 	unsigned char	*auxstr2;
@@ -54,7 +54,7 @@ int	_mem_compare(const void *s1, const void *s2, size_t n)
 	return (0);
 }
 
-void	*_mem_copy(void *dst, const void *src, size_t n)
+void	*_mem_copy(void *dst, const void *src, unsigned int n)
 {
 	unsigned char	*auxdst;
 	unsigned char	*auxsrc;
@@ -73,7 +73,7 @@ void	*_mem_copy(void *dst, const void *src, size_t n)
 	return (dst);
 }
 
-void	*_mem_move(void *dst, const void *src, size_t len)
+void	*_mem_move(void *dst, const void *src, unsigned int len)
 {
 	unsigned char	*auxdst;
 	unsigned char	*auxsrc;

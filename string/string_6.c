@@ -1,8 +1,8 @@
 #include "../includes/my_lib.h"
 
-void*	_mem_search(const void *str, int c, size_t n)
+void*	_mem_search(const void *str, int c, unsigned int n)
 {
-	size_t			i;
+	unsigned int			i;
 	unsigned char	*auxstr;
 
 	auxstr = (unsigned char *)str;
@@ -17,7 +17,7 @@ void*	_mem_search(const void *str, int c, size_t n)
 	return (NULL);
 }
 
-void	*_mem_set(void *str, int to_swap, unsigned int len)
+void*	_mem_set(void *str, int to_swap, unsigned int len)
 {
 	unsigned char	*aux;
 

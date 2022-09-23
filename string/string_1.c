@@ -49,17 +49,17 @@ int	_atoi(const char *str)
 
 void	_bzero(void *str, unsigned int n)
 {
-	string()->_memset(str, '\0', n);
+	string()->_mem_set(str, '\0', n);
 }
 
-void	*_calloc(size_t count, size_t size)
+void	*_calloc(unsigned int count, unsigned int size)
 {
 	void	*c;
 
 	c = malloc(count * size);
 	if (!c)
 		return (NULL);
-	string()->_memset(c, 0, (count * size));
+	string()->_mem_set(c, 0, (count * size));
 	return (c);
 }
 

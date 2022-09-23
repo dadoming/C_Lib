@@ -1,9 +1,9 @@
 #include "../includes/my_lib.h"
 
-static size_t	words_count(char *s, char c)
+static int	words_count(char *s, char c)
 {
-	size_t	i;
-	size_t	j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -38,7 +38,7 @@ static char	*word(char *s, char c)
 
 static char	**free_arr(char **arr, char *s)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (arr[i])
@@ -51,9 +51,9 @@ static char	**free_arr(char **arr, char *s)
 	return (NULL);
 }
 
-static char	**worker(char **arr, char *s1, char c, size_t j)
+static char	**worker(char **arr, char *s1, char c, int j)
 {
-	size_t	i;
+	int	i;
 	char	*str;
 
 	str = s1;
@@ -79,7 +79,7 @@ char	**_split(char const *str, char c)
 {
 	char	**w_arr;
 	char	*s1;
-	size_t	j;
+	int		j;
 
 	s1 = string()->_duplicate(str);
 	if (!s1)
