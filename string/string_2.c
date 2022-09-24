@@ -1,4 +1,4 @@
-#include "../includes/my_lib.h"
+#include "../includes/my_lib_string.h"
 
 int	_compare(const char *s1, const char *s2)
 {

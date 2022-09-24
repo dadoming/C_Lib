@@ -1,4 +1,5 @@
-#include "my_lib.h"
+#include "includes/my_lib_string.h"
+#include "includes/my_lib_lst.h"
 
 t_string *string()
 {
@@ -10,4 +11,11 @@ t_string *string()
     _mem_search, _mem_compare, _mem_copy, _mem_move,
     _putstring_n_fd, _split, _mapi, _iteri, _trim};
     return (&s);
+}
+
+t_listfunc *list()
+{
+    static t_listfunc l = {_new_node, _size, _last, _add_front,
+    _add_back, _iterator, _del_node, _clear_list, _del_last_node};
+    return (&l);
 }

@@ -1,4 +1,4 @@
-#include "../includes/my_lib.h"
+#include "../includes/my_lib_string.h"
 
 void	_putstring_n_fd(char *s, int fd)
 {

@@ -1,4 +1,4 @@
-#include "../includes/my_lib.h"
+#include "../includes/my_lib_string.h"
 
 char	*_append(char const *s1, char const *s2)
 {

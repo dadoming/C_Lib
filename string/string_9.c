@@ -1,4 +1,4 @@
-#include "../includes/my_lib.h"
+#include "../includes/my_lib_string.h"
 
 char	_to_lower(char letter)
 {
