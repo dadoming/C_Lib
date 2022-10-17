@@ -1,2 +1,2 @@
 # Obj_Oriented_C_Lib
-A Library in a object oriented style to use in 42 projects.
+My Library of functions to implement in 42 projects with a easier and categorized usage in VSCode.
