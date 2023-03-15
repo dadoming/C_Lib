@@ -1,149 +1,157 @@
 #ifndef MY_LIB_H
 # define MY_LIB_H
 
+# include <stdio.h>
+# include <stdlib.h>
+# include <stdint.h>
+# include <string.h>
+# include <unistd.h>
+# include <time.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# endif
+
 typedef struct s_string
 {
-    int 	(*_atoi)(const char *str);
-    int 	(*_length)(const char *str);
-    char* 	(*_rear_search)(const char *str, char to_find);
-	char*	(*_strnstr)(const char *str, const char *to_find, unsigned int);
-    char* 	(*_substr)(const char *str, unsigned int start, unsigned int len);
-    char 	(*_to_lower)(char c);
-    char 	(*_to_upper)(char c);
-    int	    (*_compare_n)(const char* s1, const char* s2, unsigned int n);
-    int	    (*_compare)(const char* s1, const char* s2);
-    char*	(*_append)(const char* s1, const char* s2);
-    char*	(*_search)(const char *str, char c);
-    int	    (*_copyl)(char *dst, const char *src, int dstsize);
-    int	    (*_concatenatel)(char *dst, const char *src, int dstsize);
-    void	(*_putchar_fd)(char c, int fd);
-    void	(*_putstring_fd)(char *s, int fd);
-    void	(*_putnumber_fd)(int n, int fd);
-    int	    (*_is_alpha)(int c);
-    int	    (*_is_ascii)(int c);
-    int	    (*_is_digit)(int c);
-    int	    (*_is_printable)(int c);
-    int	    (*_is_alnum)(int c);
-    char*   (*_itoa)(int n);
-    void	(*_bzero)(void* str, unsigned int n);
-    void*   (*_calloc)(unsigned int count, unsigned int size);
-    void*   (*_mem_set)(void *str, int to_swap, unsigned int len);
-    char*   (*_duplicate)(const char *str);
-    void*	(*_mem_search)(const void *str, int c, unsigned int n);
-    int	    (*_mem_compare)(const void *s1, const void *s2, unsigned int n);
-    void*   (*_mem_copy)(void *dst, const void *src, unsigned int n);
-    void*   (*_mem_move)(void *dst, const void *src, unsigned int len);
-    void	(*_putstring_n_fd)(char *s, int fd);
-    char**  (*_split)(char const *str, char c);
-    char*	(*_mapi)(char const *s, char (*f)(unsigned int, char));
-    void	(*_iteri)(char *s, void (*f)(unsigned int, char*));
-    char*	(*_trim)(char const *s1, char const *set);
+	char	(*_to_lower)(char c);// Returns a passed letter in lowercase.
+	char	(*_to_upper)(char c);// Returns a passed letter in uppercase.
+	void	(*_putchar_fd)(char c, int fd);// Puts char in fd.
+	void	(*_putstring_fd)(char *s, int fd);// Puts string in fd.
+	void	(*_putnumber_fd)(int n, int fd);// Puts number in fd.
+	void	(*_bzero)(void* str, unsigned int n);// Erases the data in the n bytes of the memory starting at the location pointed to by s, by writing zeros (bytes containing '\0') to that area.
+	void	(*_putstring_n_fd)(char *s, int fd);	// Puts string with new line in fd.
+	void	(*_iteri)(char *s, void (*f)(unsigned int, char*));	// Returns a new alloc'd string having applied function f to every member of the string. 
+	void*	(*_calloc)(unsigned int count, unsigned int size);// Returns a malloc'd pointer initialized with 0's with sizeof(count * size) bytes. 
+	void*	(*_mem_set)(void *str, int to_swap, unsigned int len);// Sets the array, one by one, no more than len characters to 'to_swap'.
+	void*	(*_mem_search)(const void *str, int c, unsigned int n);// Searches for 'c' in an array, no more than n characters. Return the address of n.
+	void*	(*_mem_copy)(void *dst, const void *src, unsigned int n);	// Copies no more than n from array src to array dst, return a pointer to dst.
+	void*	(*_mem_move)(void *dst, const void *src, unsigned int len);	// Copies from src to dst but uses a temporary array to do it.
+	int		(*_atoi)(const char *str); // Returns an int from a passed string.
+	int		(*_length)(const char *str);// Returns the length of a string.
+	int		(*_compare)(const char* s1, const char* s2);	// Compares if s2 == s1. Return the difference if different. 0 if the same.
+	int		(*_compare_n)(const char* s1, const char* s2, unsigned int n);	// Compare if s2 == s1 no more than n characters. Return the difference if different, 0 if the same.
+	int		(*_copyl)(char *dst, const char *src, int dstsize);	// Copies (dstsize - 1) characters from src to dst. Return the amount of characters of the total string it tried to copy.
+	int		(*_concatenatel)(char *dst, const char *src, int dstsize);	// Appends (dstsize - dst(len) - 1) characters from src to dst. Returns the amount of characters of the total string it tried to concatenate.
+	int		(*_mem_compare)(const void *s1, const void *s2, unsigned int n);	// Compares array1 with array2, no more than n characters. Return the difference if different. 0 if the same.
+	int		(*_arg_count)(char *str);	// Returns the number of _isspace delimited words. 
+	int		(*_length_until_c)(char *str, char c);	// Returns the number of characters in the string until the reach of char n. 0 if no string or char passed.
+	int		(*_array_length)(char **array);	// Returns the size of an array.
+	int		(*_same_word)(char *w1, char *w2, int size);	// Checks if the word is the same as the string passed.
+	char*	(*_itoa)(int n);// Returns an alloc'd string from a passed integer.
+	char*	(*_duplicate)(const char *str);// Returns a malloc'd string duplicated.
+	char*	(*_mapi)(char const *s, char (*f)(unsigned int, char));
+	char*	(*_rear_search)(const char *str, char to_find);// Return a pointer to where it found 'char c' in string.
+	char*	(*_strnstr)(const char *str, const char *to_find, unsigned int);	// Finds needle in haystack and no more than len characters are searched. If found, it returns a pointer to where it started. 
+	char*	(*_substr)(const char *str, unsigned int start, unsigned int len);	// Return a new alloc'd string with a 'len' length and starting in s[start].
+	char*	(*_append)(char** s1, const char* s2);// Returns a new alloc'd string appending s2 to s1.
+	char*	(*_search)(const char *str, char c);// Returns a pointer to where it found 'char c' in string.
+	char*	(*_trim)(char const *s1, char const *set);
+	char*	(*_copy_until)(char *str, int n);	// Returns an allocated string that is copied until n characters.
+	char*	(*_copy)(char *dst, char *src);	// Copies src to dst
+	char*	(*_join)(char const *s1, char const *s2);	// Joins s2 to s1. Allocates memory.
+	char**	(*_split)(char const *str, char c);	// Returns a splitted string.
+}   t_string;
 
-} t_string;
+typedef struct s_check
+{
+	int		(*_is_alpha)(int c);// Checks if 'c' is alpha. 2 for uppercase. 1 for lowercase. 0 for false.
+	int		(*_is_ascii)(int c);// Checks if c is ascii. 1 for true. 0 for false.
+	int		(*_is_digit)(int c);// Checks if c is digit. 1 for true. 0 for false. 
+	int		(*_is_printable)(int c);// Checks if 32 >= c =< 126. 1 for true. 0 for false. 
+	int		(*_is_alnum)(int c);// Checks if c is alpha or is digit. 1 for true. 0 for false.
+	int		(*_is_space)(int c);// Checks if c is space. 1 for true. 0 for false.
+	int		(*_is_directory)(char *path);// Checks if path is a directory. 1 for true. 0 for false.
+	int		(*_is_meta_char)(char c);// Checks if char is meta_character. 1 for true. 0 for false.
+}   t_check;
 
-t_string *string();
+typedef struct s_list
+{
+	char            *token;
+	int             type;
+	struct s_list   *next;
+} t_list;
 
-// Returns a new alloc'd string appending s2 to s1.
-char*   _append(char const *s1, char const *s2);
+typedef struct s_listfunc
+{
+	void	(*_add_front)(t_list **lst, t_list *new);// Adds a new node to the first position of the linked list and sets the head of the list to that new node. The function returns if 'lst' is NULL.
+	void	(*_add_back)(t_list **lst, void* content);// Adds a new node to the back of the linked list.Returns if no list is passed.
+	void	(*_iterator)(t_list *lst, void (*f)(void *));// Applies a function to every member of the list.
+	void	(*_del_node)(t_list **lst);	// Deletes the current node and sets lst pointer to next node. Frees removed node.
+	void	(*_clear_list)(t_list **lst);// Clears the whole list calling _del_node() to every member of the list.
+	void	(*_del_last_node)(t_list **lst);// Deletes the last node of the list.
+	int		(*_size)(t_list *lst);// Returns the list size.
+	t_list*	(*_new_node)(void *content);// Returns a pointer to a new node. Returns NULL if allocation fails.
+	t_list*	(*_last)(t_list *lst);// Returns a pointer to the last node of the list. Returns 0 if lst is NULL.
+} t_listfunc;
 
-// Finds needle in haystack and no more than len characters are searched. If found, it returns a pointer to where it started. 
+// My lib function storer.
+t_string    *string();
+t_check     *check();
+t_listfunc  *list();
+
+char	_to_lower(char letter);
+char	_to_upper(char letter);
+
+char*   _append(char **s1, char const *s2);
 char*   _strnstr(const char *str, const char *to_find, unsigned int len);
-
-// Return a pointer to where it found 'char c' in string.
 char*   _rear_search(const char *str, char c);
-
-// Return a new alloc'd string with a 'len' length and starting in s[start].
 char*   _substr(const char *s, unsigned int start, unsigned int len);
-
-// Returns a passed letter in lowercase.
-char		_to_lower(char letter);
-
-// Returns a passed letter in uppercase.
-char		_to_upper(char letter);
-
-// Returns an int from a passed string.
-int		_atoi(const char *str);
-
-// Returns the length of a string.
-int 	_length(const char *str);
-
-// Compares if s2 == s1. Return the difference if different. 0 if the same.
-int	    _compare(const char* s1, const char* s2);
-
-// Compare if s2 == s1 no more than n characters. Return the difference if different, 0 if the same.
-int	    _compare_n(const char *s1, const char *s2, unsigned int n);
-
-// Returns a pointer to where it found 'char c' in string.
 char*	_search(const char *str, char c);
-
-// Copies (dstsize - 1) characters from src to dst. Return the amount of characters of the total string it tried to copy.
-int	    _copyl(char *dst, const char *src, int dstsize);
-
-// Appends (dstsize - dst(len) - 1) characters from src to dst. Returns the amount of characters of the total string it tried to concatenate.
-int	    _concatenatel(char *dst, const char *src, int dstsize);
-
-// Puts char in fd.
-void	_putchar_fd(char c, int fd);
-
-// Puts string in fd.
-void	_putstring_fd(char *s, int fd);
-
-// Puts string with '\n' in fd.
-void	_putstring_n_fd(char *s, int fd);
-
-// Puts number in fd.
-void	_putnumber_fd(int n, int fd);
-
-// Checks if 'c' is alpha. Returns 2 for uppercase. 1 for lowercase. 0 for not alpha.
-int	    _is_alpha(int c);
-
-// Checks if 'c' is ascii. Returns 1 for true. 0 for false.
-int	    _is_ascii(int c);
-
-// Checks if 'c' is digit. Returns 1 for true. 0 for false. 
-int	    _is_digit(int c);
-
-// Checks if 32 >= 'c' =< 126. Returns 1 for true. 0 for false. 
-int	    _is_printable(int c);
-
-// Checks if is alpha or is digit. Returns 1 for true. 0 for false.
-int	    _is_alnum(int c);
-
-// Returns an alloc'd string from a passed integer.
 char*   _itoa(int n);
-
-// Erases the data in the n bytes of the memory starting at the location pointed to by s, by writing zeros (bytes containing '\0') to that area.
-void	_bzero(void *str, unsigned int n);
-
-// Returns a malloc'd pointer initialized with 0's with sizeof(count * size) bytes. 
-void*   _calloc(unsigned int count, unsigned int size);
-
-// Sets the array, one by one, no more than len characters to 'to_swap'
-void*   _mem_set(void *str, int to_swap, unsigned int len);
-
-// Returns a malloc'd string duplicated.
+char*	_mapi(char const *s, char (*f)(unsigned int, char));
+char*	_trim(char const *s1, char const *set);
 char*   _duplicate(const char *str);
+char*   _copy_until(char *str, int n);
+char*   _copy(char *dst, char *src);
+char*   _join(char const *s1, char const *s2);
 
-// Searches for 'c' in an array, no more than n characters. Return the address of n.
-void*	_mem_search(const void *str, int c, unsigned int n);
-
-// Compares array1 with array2, no more than n characters. Return the difference if different. 0 if the same.
-int	    _mem_compare(const void *s1, const void *s2, unsigned int n);
-
-// Copies no more than n from array src to array dst, return a pointer to dst.
-void*   _mem_copy(void *dst, const void *src, unsigned int n);
-
-// Copies from src to dst but uses a temporary array to do it.
-void*   _mem_move(void *dst, const void *src, unsigned int len);
-
-// Returns a splitted string.
 char**  _split(char const *s, char c);
 
-// Returns a new alloc'd string having applied function f to every member of the string. 
-char*	_mapi(char const *s, char (*f)(unsigned int, char));
+int     _arg_count(char *str);
+int		_atoi(const char *str);
+int 	_length(const char *str);
+int	    _compare(const char* s1, const char* s2);
+int	    _compare_n(const char *s1, const char *s2, unsigned int n);
+int	    _copyl(char *dst, const char *src, int dstsize);
+int	    _concatenatel(char *dst, const char *src, int dstsize);
+int	    _is_alpha(int c);
+int	    _is_ascii(int c);
+int	    _is_digit(int c);
+int	    _is_printable(int c);
+int	    _is_alnum(int c);
+int     _is_space(int c);
+int     _is_meta_char(char c);
+int	    _mem_compare(const void *s1, const void *s2, unsigned int n);
+int     _length_until_c(char *str, char c);
+int     _is_directory(char *path);
+int	    _size(t_list *lst);
+int     _array_length(char **array);
+int     _same_word(char *w1, char *w2, int size);
 
+void	_putchar_fd(char c, int fd);
+void	_putstring_fd(char *s, int fd);
+void	_putstring_n_fd(char *s, int fd);
+void	_putnumber_fd(int n, int fd);
+void	_bzero(void *str, unsigned int n);
 void	_iteri(char *s, void (*f)(unsigned int, char*));
+void    _add_front(t_list **lst, t_list *new);
+void	_add_back(t_list **lst, void *content);
+void	_iterator(t_list *lst, void (*f)(void *));
+void	_del_node(t_list **lst);
+void	_clear_list(t_list **lst);
+void    _del_last_node(t_list **lst);
 
-char*	_trim(char const *s1, char const *set);
+void*   _calloc(unsigned int count, unsigned int size);
+void*   _mem_set(void *str, int to_swap, unsigned int len);
+void*	_mem_search(const void *str, int c, unsigned int n);
+void*   _mem_copy(void *dst, const void *src, unsigned int n);
+void*   _mem_move(void *dst, const void *src, unsigned int len);
+
+t_list	*_new_node(void *content);
+t_list	*_last(t_list *lst);
 
 #endif

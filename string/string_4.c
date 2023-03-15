@@ -1,4 +1,5 @@
-#include "../includes/my_lib_string.h"
+#include "../../../includes/my_lib.h"
+
 
 static int	ft_length(int n)
 {

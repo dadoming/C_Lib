@@ -1,14 +1,17 @@
-#include "../includes/my_lib_string.h"
+#include "../../../includes/my_lib.h"
+
 
 int _length(const char *str)
 {
     unsigned int i;
 	
+	if (str == NULL)
+		return (0);
 	i = 0;
     while (str[i] != '\0')
     {
         i++;
-    }
+	}
     return (i);
 }
 

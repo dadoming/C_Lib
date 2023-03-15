@@ -1,16 +1,23 @@
-#include "includes/my_lib_string.h"
-#include "includes/my_lib_lst.h"
+#include "../../includes/my_lib.h"
 
 t_string *string()
 {
     static t_string s = {_atoi, _length, _rear_search, _strnstr,
     _substr, _to_lower, _to_upper, _compare_n, _compare, _append,
     _search, _copyl, _concatenatel, _putchar_fd, _putstring_fd,
-    _putnumber_fd, _is_alpha, _is_ascii, _is_digit, _is_printable,
-    _is_alnum, _itoa, _bzero, _calloc, _mem_set, _duplicate,
+    _putnumber_fd, _itoa, _bzero, _calloc, _mem_set, _duplicate,
     _mem_search, _mem_compare, _mem_copy, _mem_move,
-    _putstring_n_fd, _split, _mapi, _iteri, _trim};
+    _putstring_n_fd, _split, _mapi, _iteri, _trim, _arg_count, 
+    _length_until_c, _copy_until, _array_length, _same_word, _copy,
+    _join};
     return (&s);
+}
+
+t_check *check()
+{
+    static t_check c = {_is_alpha, _is_ascii, _is_digit, _is_printable,
+    _is_alnum, _is_space, _is_directory, _is_meta_char};
+    return (&c);
 }
 
 t_listfunc *list()

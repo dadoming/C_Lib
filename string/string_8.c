@@ -1,4 +1,5 @@
-#include "../includes/my_lib_string.h"
+#include "../../../includes/my_lib.h"
+
 
 static int	words_count(char *s, char c)
 {

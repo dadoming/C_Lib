@@ -1,10 +1,10 @@
-#include "../includes/my_lib_lst.h"
+#include "../../../includes/my_lib.h"
 
 void	_iterator(t_list *lst, void (*f)(void *))
 {
 	while (lst != NULL)
 	{
-		f(lst -> content);
+		f(lst -> token);
 		lst = lst -> next;
 	}
 }
@@ -38,8 +38,6 @@ void _del_last_node(t_list **lst)
 
 void	_clear_list(t_list **lst)
 {
-	t_list	*temp;
-
 	if (!lst)
 		return ;
 	while (*lst != NULL)

@@ -1,4 +1,5 @@
-#include "../includes/my_lib_string.h"
+#include "../../../includes/my_lib.h"
+
 
 char	_to_lower(char letter)
 {
@@ -36,4 +37,40 @@ char*	_trim(char const *s1, char const *set)
 	string()->_copyl(trim, s1 + i, len + 1);
 	trim[len] = '\0';
 	return (trim);
+}
+
+int _arg_count(char *str)
+{
+    int i;
+    int count;
+
+    count = 0;
+    i = 0;
+    while (check()->_is_space(str[i]))
+        i++;
+    if (check()->_is_ascii(str[i]) && str[i] != '\0')
+        count++;
+    while (str[i] != '\0')
+    {
+        if (str[i + 1] == '\0')
+            break;
+        if (check()->_is_space(str[i]) && !check()->_is_space(str[i + 1]))
+            count++;
+        i++;
+    }
+    return (count);
+}
+
+int _length_until_c(char *str, char c)
+{
+    int i;
+
+    i = 0;
+    if(!str)
+        return (0);
+    while (str[i] != '\0' && str[i] != c)
+    {
+        i++;
+    }
+    return (i);
 }

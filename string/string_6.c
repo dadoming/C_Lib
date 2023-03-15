@@ -1,4 +1,5 @@
-#include "../includes/my_lib_string.h"
+#include "../../../includes/my_lib.h"
+
 
 void*	_mem_search(const void *str, int c, unsigned int n)
 {
